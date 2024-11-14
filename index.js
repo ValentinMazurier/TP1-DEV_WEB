@@ -58,10 +58,21 @@ app.put("/:id", (req, res) => {
 	});
 });
 
-// DELETE : supprimer un utilisateur (à définir plus tard, placeholder pour l'instant)
-app.delete("/", (req, res) => {
+// DELETE : supprimer un utilisateur par ID
+app.delete("/:id", (req, res) => {
+	const id = parseInt(req.params.id);
+	const userIndex = users.findIndex((user) => user.id === id);
+
+	// Vérifie si l'utilisateur existe
+	if (userIndex < 0) {
+		return res.status(404).json({ msg: "utilisateur non trouvé" });
+	}
+
+	// Supprime l'utilisateur de la liste
+	users.splice(userIndex, 1);
+
 	res.json({
-		msg: "hello rest api ici le DELETE",
+		msg: "utilisateur supprimé",
 	});
 });
 
