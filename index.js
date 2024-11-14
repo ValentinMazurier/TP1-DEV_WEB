@@ -18,6 +18,20 @@ app.get("/", (req, res) => {
 	res.json(users);
 });
 
+// GET : lire un utilisateur par ID
+app.get("/:id", (req, res) => {
+	const id = parseInt(req.params.id);
+	const userIndex = users.findIndex((user) => user.id === id);
+
+	// Vérifie si l'utilisateur existe
+	if (userIndex < 0) {
+		return res.status(404).json({ msg: "utilisateur non trouvé" });
+	}
+
+	// Renvoie l'utilisateur trouvé
+	res.json(users[userIndex]);
+});
+
 // POST : créer un nouvel utilisateur
 app.post("/", (req, res) => {
 	const { firstName, lastName } = req.body;
