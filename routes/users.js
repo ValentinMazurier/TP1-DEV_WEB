@@ -1,38 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../database")
+const { getAllUsers, createnewUser } = require("../controllers/usersControllers")
 
 
 
-
-router.get("/users", (req, res) => {
-    db.all('SELECT * FROM users', [], (err, rows) => {
-        if (err) {
-          res.status(500).json({ error: err.message });
-        } else {
-          res.json(rows);
-        }
-      });
-    ;
-});
+// MÉTHODE GET
+router.get("/users", getAllUsers)
 
 // POST : créer un nouvel utilisateur
-router.post("/", (req, res) => {
-	const { firstName, lastName } = req.body;
-
-	const lastId = users[users.length - 1].id;
-	const newId = lastId + 1;
-
-	const newUser = {
-		id: newId,
-		firstName,
-		lastName,
-		role: "user",  // Optionnel, si vous souhaitez assigner un rôle par défaut
-	};
-
-	users.push(newUser);
-	res.status(201).json(newUser);
-});
+router.post("/users", createnewUser);
 
 // PUT : modifier un utilisateur par ID
 router.put("/:id", (req, res) => {

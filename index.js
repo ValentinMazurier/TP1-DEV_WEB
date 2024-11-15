@@ -8,7 +8,7 @@ app.use(express.json())
 //users endpoint
 app.use("/api/", usersRouter)
 
-// GET : lire tous les utilisateurs
+// HOME GET METHOD
 app.get("/", (req, res) => {
 	res.json({
 		msg: "welcome to my users API !!!"
